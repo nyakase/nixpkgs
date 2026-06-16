@@ -8,7 +8,7 @@
 
   # non-python deps
   cfssl,
-  ffmpeg,
+  ffmpeg-headless,
   util-linux,
 
   # options
@@ -66,7 +66,7 @@
 }:
 
 let
-  runtimeDeps = ([ util-linux ] ++ extraPackages ++ lib.optional withMediaProcessing ffmpeg);
+  runtimeDeps = ([ util-linux ] ++ extraPackages ++ lib.optional withMediaProcessing ffmpeg-headless);
 in
 
 python3Packages.buildPythonApplication rec {
@@ -102,7 +102,7 @@ python3Packages.buildPythonApplication rec {
       rawpy
     ])
     ++ lib.optional withFastThumbnails pyvips
-    ++ lib.optional withMediaProcessing ffmpeg
+    ++ lib.optional withMediaProcessing ffmpeg-headless
     ++ lib.optional withBasicAudioMetadata mutagen
     ++ lib.optional withHashedPasswords argon2-cffi
     ++ lib.optional withZeroMQ pyzmq
